@@ -1,22 +1,49 @@
 import {sendUpdate} from './ziro-core.js';
 
+const KEY_PREFIX = 'ziro-';
+
 export default class ZiroState {
-    constructor() {
+    constructor(name) {
+        this._config = typeof this.config === 'function' ? this.config() : {};
         this._success = true;
         this._updating = false;
-        this._innerState = this.init();
+        this.key = KEY_PREFIX + name;
+
+        const initialState = typeof this.init === 'function' ? this.init() : {};
+        try {
+            let savedState = undefined;
+            if (this._config.localStorage) {
+                savedState = JSON.parse(localStorage.getItem(this.key));
+            } else if (this._config.sessionStorage) {
+                savedState = JSON.parse(sessionStorage.getItem(this.key));
+            }
+            this._innerState = savedState ? Object.assign(initialState, savedState) : initialState;
+        } catch (e) {
+            console.error('Error retrieving saved state', this.key, e);
+            this._innerState = initialState;
+        }
+
         this.state = {};
         const self = this;
-
         Object.keys(this._innerState).forEach(key => {
             this.state = {
                 ...this.state,
                 set [key](val) {
                     self._innerState[key] = val;
+                    if (self._config.localStorage) {
+                        localStorage.setItem(self.key, JSON.stringify(self._innerState));
+                    } else if (self._config.sessionStorage) {
+                        sessionStorage.setItem(self.key, JSON.stringify(self._innerState));
+                    }
                     sendUpdate();
+                },
+                get [key]() {
+                    return self._innerState[key];
                 }
             }
         });
+
+        sendUpdate();
     }
 
     init() {
