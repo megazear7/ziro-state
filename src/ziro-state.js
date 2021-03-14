@@ -26,9 +26,8 @@ export default class ZiroState {
         this.state = {};
         const self = this;
         Object.keys(this._innerState).forEach(key => {
-            this.state = {
-                ...this.state,
-                set [key](val) {
+            Object.defineProperty(this.state, key, {
+                set: function(val) {
                     self._innerState[key] = val;
                     if (self._config.localStorage) {
                         localStorage.setItem(self.key, JSON.stringify(self._innerState));
@@ -37,10 +36,10 @@ export default class ZiroState {
                     }
                     sendUpdate();
                 },
-                get [key]() {
+                get: function() {
                     return self._innerState[key];
                 }
-            }
+            });
         });
 
         sendUpdate();
