@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "watch": "rollup --config --watch",
+    "build": "rollup --config",
     "docs": "npm run watch & npm run docs:serve",
     "docs:build": "npm run build && orison build --srcDir docs --buildDir built-docs",
     "docs:serve": "npm run watch & orison serve --srcDir docs",
