@@ -33,17 +33,20 @@ export default new ExampleState('example-state');
 import { listen } from 'ziro-state';
 import exampleState from './example-state.js';
 
-class MessageManager {
+class MessageListener {
   constructor() {
     // Pass your object to the listener
     listen(this);
   }
 
   stateUpdated() {
-    // Recieve updates in the stateUpdated method.
+    // Recieve updates in the stateUpdated method
     console.log(exampleState.getState().message);
   }
 }
+
+// Create an instance of your message listener
+new MessageListener();
 
 // Initiate updates by calling the methods you defined
 exampleState.updateMessageAsync();

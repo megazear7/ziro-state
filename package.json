@@ -1,6 +1,6 @@
 {
   "name": "ziro-state",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Easy to use web app state management",
   "main": "src/index.js",
   "scripts": {
