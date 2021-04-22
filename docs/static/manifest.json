@@ -1,6 +1,6 @@
 {
   "name": "Ziro State",
-  "short_name": "ZiroState",
+  "short_name": "Ziro State",
   "description": "Easy to use web app state management",
   "start_url": "/",
   "display": "standalone",
