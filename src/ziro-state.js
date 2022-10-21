@@ -17,10 +17,10 @@ export default class ZiroState {
             } else if (this._config.sessionStorage) {
                 savedState = JSON.parse(sessionStorage.getItem(this.key));
             }
-            this._innerState = savedState ? Object.assign(initialState, savedState) : initialState;
+            this._innerState = this.transform(savedState ? Object.assign(initialState, savedState) : initialState);
         } catch (e) {
             console.error('Error retrieving saved state', this.key, e);
-            this._innerState = initialState;
+            this._innerState = this.transform(initialState);
         }
 
         this.state = {};
@@ -45,13 +45,17 @@ export default class ZiroState {
         sendUpdate();
     }
 
+    transform(state) {
+        return state;
+    }
+
     init() {
         return {
         }
     }
 
     getState() {
-        return JSON.parse(JSON.stringify(this._innerState));
+        return this._innerState;
     }
 
     sendUpdate(promise) {

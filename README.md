@@ -8,8 +8,32 @@ Easy to use web app state management. View the documentation at [ziro-state.alex
 
 ## Install
 
-```
+```bash
 npm install ziro-state
 ```
 
 For usage, refer to the documentation.
+
+
+## Contributing
+
+Clone the repo and then run npm link.
+
+```bash
+cd ziro-state
+npm link
+npm run watch
+cd ../../ # Some other directory
+npm link ziro-state
+```
+
+### Publishing
+
+```bash
+# Bump version in package.json
+npm run build
+npm add .
+npm commit -m "Something"
+npm push origin main
+npm publish
+```

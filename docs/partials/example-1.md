@@ -10,6 +10,14 @@ class ExampleState extends ZiroState {
     }
   }
 
+  // After reading json from local storage, this method can be used
+  // to transform that state into an JS object or perform other transformations.
+  transform(state) {
+    return  {
+      message: state.message.toLowerCase();
+    }
+  }
+
   // Define synchronous updates
   updateMessage(str) {
     this.state.message = str;
