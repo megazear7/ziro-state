@@ -32,8 +32,8 @@ npm link ziro-state
 ```bash
 # Bump version in package.json
 npm run build
-npm add .
-npm commit -m "Something"
-npm push origin main
+git add .
+git commit -m "Something"
+git push origin main
 npm publish
 ```
